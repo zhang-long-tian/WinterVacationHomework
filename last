@@ -15,7 +15,6 @@ obvious_types = re.findall(r'<span class="short">(.*?)</span>', html)
 print(obvious_types)
 def takeSecond(elem):
     return elem[1]
-
 def main():
     path = "douban1.txt"
     file = open(path,'r',encoding="utf-8")
