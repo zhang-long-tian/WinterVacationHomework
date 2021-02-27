@@ -1,0 +1,10 @@
+# 主函数
+if __name__ == '__main__':
+    jieba_cloud("douban1.txt", "1")
+    jieba_cloud("douban1.txt", "2")
+    jieba_cloud("douban1.txt", "3")
+    jieba_cloud("douban1.txt", "4")
+    jieba_cloud("douban1.txt", "5")
+
+    jieba_cloud("douban1.txt", "6")
+
