@@ -1,0 +1,24 @@
+def main():
+    path = "douban1.txt"
+    file = open(path,'r',encoding="utf-8")
+    text=file.read()
+    file.close()
+
+    words = jieba.lcut(text)
+    counts = {}
+    for word in words:
+        if len(word) == 1:
+            continue
+        else:
+            counts[word] = counts.get(word,0) + 1
+
+    items = list(counts.items())
+    items.sort(key = takeSecond,reverse=True)
+
+    for i in range(20):
+        item=items[i]
+        keyWord =item[0]
+        count=item[1]
+        print("{0:<10}{1:>5}".format(keyWord,count))
+
+main()
