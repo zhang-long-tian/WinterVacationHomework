@@ -1,4 +1,4 @@
-# 主函数
+
 if __name__ == '__main__':
     jieba_cloud("douban1.txt", "1")
     jieba_cloud("douban1.txt", "2")
