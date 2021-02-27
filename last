@@ -1,0 +1,74 @@
+import requests
+from stylecloud import gen_stylecloud
+import jieba
+from bs4 import BeautifulSoup
+import re
+header={
+    'User-Agent':
+'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36 Edg/88.0.705.74'
+}
+rq = requests.get('https://movie.douban.com/subject/34779692/?from=showing','https://movie.douban.com/subject/34779692/reviews?start=20',headers=header)
+rq.encoding = 'utf-8'
+html = rq.text
+print(rq)
+obvious_types = re.findall(r'<span class="short">(.*?)</span>', html)
+print(obvious_types)
+def takeSecond(elem):
+    return elem[1]
+
+def main():
+    path = "douban1.txt"
+    file = open(path,'r',encoding="utf-8")
+    text=file.read()
+    file.close()
+
+    words = jieba.lcut(text)
+    counts = {}
+    for word in words:
+        if len(word) == 1:
+            continue
+        else:
+            counts[word] = counts.get(word,0) + 1
+
+    items = list(counts.items())
+    items.sort(key = takeSecond,reverse=True)
+
+    for i in range(20):
+        item=items[i]
+        keyWord =item[0]
+        count=item[1]
+        print("{0:<10}{1:>5}".format(keyWord,count))
+
+main()
+def jieba_cloud(file_name, icon):
+    with open(file_name, 'r', encoding='utf8') as f:
+        word_list = jieba.cut(f.read())
+
+        result = " ".join(word_list)   
+        icon_name = " "
+        if icon == "1":
+            icon_name = ''
+        elif icon == "2":
+            icon_name = "fas fa-dragon"
+        elif icon == "3":
+            icon_name = "fas fa-dog"
+        elif icon == "4":
+            icon_name = "fas fa-cat"
+        elif icon == "5":
+            icon_name = "fas fa-dove"
+        elif icon == "6":
+            icon_name = "fab fa-qq"
+        pic = str(icon) + '.png'
+        if icon_name is not None and len(icon_name) > 0:
+            gen_stylecloud(text=result, icon_name=icon_name, font_path='simsun.ttc', output_name=pic)
+        else:
+            gen_stylecloud(text=result, font_path='simsun.ttc', output_name=pic)
+        return pic
+if __name__ == '__main__':
+    jieba_cloud("douban1.txt", "1")
+    jieba_cloud("douban1.txt", "2")
+    jieba_cloud("douban1.txt", "3")
+    jieba_cloud("douban1.txt", "4")
+    jieba_cloud("douban1.txt", "5")
+
+    jieba_cloud("douban1.txt", "6")
