@@ -1,0 +1,25 @@
+def jieba_cloud(file_name, icon):
+    with open(file_name, 'r', encoding='utf8') as f:
+        word_list = jieba.cut(f.read())
+
+        result = " ".join(word_list)    # 分词用  隔开
+        # 制作中文词云
+        icon_name = " "
+        if icon == "1":
+            icon_name = ''
+        elif icon == "2":
+            icon_name = "fas fa-dragon"
+        elif icon == "3":
+            icon_name = "fas fa-dog"
+        elif icon == "4":
+            icon_name = "fas fa-cat"
+         elif icon == "5":
+            icon_name = "fas fa-dove"
+        elif icon == "6":
+            icon_name = "fab fa-qq"
+        pic = str(icon) + '.png'
+        if icon_name is not None and len(icon_name) > 0:
+            gen_stylecloud(text=result, icon_name=icon_name, font_path='simsun.ttc', output_name=pic)
+        else:
+            gen_stylecloud(text=result, font_path='simsun.ttc', output_name=pic)
+        return pic
