@@ -1,9 +1,7 @@
 def jieba_cloud(file_name, icon):
     with open(file_name, 'r', encoding='utf8') as f:
         word_list = jieba.cut(f.read())
-
-        result = " ".join(word_list)    # 分词用  隔开
-        # 制作中文词云
+        result = " ".join(word_list)    
         icon_name = " "
         if icon == "1":
             icon_name = ''
